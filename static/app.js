@@ -1,3 +1,11 @@
+async function deleteMemo(event){
+    const id = event.target.dataset.id
+    const res = await fetch(`/memos/${id}`, {
+        method: "DELETE"
+    })
+    readMemo();
+}
+
 async function editMemo(event){
     const id = event.target.dataset.id
     const editInput = prompt('수정할 값을 입력하세요')
@@ -17,12 +25,20 @@ function displayMemo(memo){
     const ul = document.querySelector('#memo-ul');
     const li = document.createElement('li');
     const editBtn = document.createElement('button');
+    const deleteBtn = document.createElement('button');
     li.innerText = `[id:${memo.id}] ${memo.content}`;
+    
     editBtn.innerText = '수정';
     editBtn.addEventListener('click', editMemo);
     editBtn.dataset.id = memo.id;
+
+    deleteBtn.innerText = '삭제'
+    deleteBtn.addEventListener('click', deleteMemo);
+    deleteBtn.dataset.id = memo.id;
+    
     ul.appendChild(li);
     li.appendChild(editBtn)
+    li.appendChild(deleteBtn)
 }
 
 async function readMemo(){
