@@ -34,4 +34,14 @@ def edit_memo(req_memo: Memo):
     return f'{req_memo.id}의 메모는 없습니다.'
 
 
+@app.delete("/memos/{memo_id}")
+def delete_memo(memo_id):
+    for i, memo in enumerate(memos):
+        if memo.id == memo_id:
+            memos.pop(i)
+            return '메모 삭제를 성공했습니다.'
+
+    return f'{memo_id}의 메모는 없습니다.'
+
+
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
