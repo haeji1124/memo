@@ -10,6 +10,10 @@ class Memo(BaseModel):
 
 memos = []
 
+@app.get("/memos")
+def read_memo():
+    return memos
+
 @app.post("/memos")
 def create_memo(memo: Memo):
     memos.append(memo)
